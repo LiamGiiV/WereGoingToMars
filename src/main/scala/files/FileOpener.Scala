@@ -6,7 +6,7 @@ import scala.io.Source
 
 class FileOpener(fileIn: File) {
   def validateFileTypeAsCSV(fileIn: File): Boolean = {
-    fileIn.fileExtension.toLowerCase() match {
+    fileIn.fileExtension.get.toLowerCase() match {
       case "csv" => true
       case _     => false
     }
@@ -23,7 +23,6 @@ class FileOpener(fileIn: File) {
       }
     } catch {
       case e: Exception =>
-        println(e)
         return None
     }
     if (lines.nonEmpty) {

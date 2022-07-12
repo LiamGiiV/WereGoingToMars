@@ -1,6 +1,6 @@
 package liamgiiv.weregoingtomars
 
-import files.{File, FileOpener}
+import files.{File, FileManager}
 import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -15,27 +15,21 @@ class FileOpenerTest
   val validPathToCsvFile: String = "./src/test/fixtures/valid.csv"
   val invalidPathToCsvFile: String = "./pokemon-global-offensive.csv"
   val validPathToNonCsvFile: String = "./src/test/fixtures/notacsv.png"
-  val validCSVFileFixture: File = new File(validPathToCsvFile)
-  val invalidCSVFileFixture: File = new File(invalidPathToCsvFile)
-  val nonCSVFileFixture: File = new File(validPathToNonCsvFile)
 
   test("CSV file should open successfully.") {
-    val fileOpenerFixture = new FileOpener(validCSVFileFixture)
-    val openAttemptResult: Option[File] = fileOpenerFixture.readFile
-    assert(openAttemptResult.isDefined)
+    val fileManagerFixture = new FileManager(validPathToCsvFile)
+    assert(fileManagerFixture.managedFile.isDefined)
   }
 
   test("Invalid file should be treated as invalid via Option - none.") {
-    val fileOpenerFixture = new FileOpener(invalidCSVFileFixture)
-    val openAttemptResult: Option[File] = fileOpenerFixture.readFile
-    assert(openAttemptResult.isEmpty)
+    val fileManagerFixture = new FileManager(invalidPathToCsvFile)
+    assert(fileManagerFixture.managedFile.isEmpty)
   }
 
   test(
     "Invalid file extension should be treated as invalid via Option - none."
   ) {
-    val fileOpenerFixture = new FileOpener(nonCSVFileFixture)
-    val openAttemptResult: Option[File] = fileOpenerFixture.readFile
-    assert(openAttemptResult.isEmpty)
+    val fileManagerFixture = new FileManager(validPathToNonCsvFile)
+    assert(fileManagerFixture.managedFile.isEmpty)
   }
 }

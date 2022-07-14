@@ -56,6 +56,10 @@ class FileManager(filePathIn: String) {
 
   def writeFile(filePathIn: String, linesIn: Array[String]): Boolean = {
     if (filePathIn.isEmpty || filePathIn.length < 0 || linesIn.isEmpty) {
+      if (linesIn.isEmpty) {
+        println("I'm empty :(")
+      }
+      println("I failed :(")
       return false
     }
 

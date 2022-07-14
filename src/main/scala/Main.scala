@@ -1,14 +1,23 @@
 package liamgiiv.weregoingtomars
 
-import files.FileManager
+import expedition.ExpeditionGenerator
+import greatUiUxFeatures.Welcomer
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val lines: Array[String] =
-      Array("These, are, some, test, lines\n", "They, are, Pretty, Cool!\n")
+    // Introduce the program
+    Welcomer.theWelcome()
 
-    val validPathToWriteFile: String = "./src/test/fixtures/testWrite.csv"
-    val outputFileManager: FileManager = new FileManager(validPathToWriteFile)
-    outputFileManager.writeFile(validPathToWriteFile, lines)
+    // Load the file
+    val expeditionDataGenerator =
+      new ExpeditionGenerator(
+        "./data/expeditions.csv",
+        "./src/test/fixtures/testWrite.csv"
+      )
+    if (expeditionDataGenerator.go()) {
+      println("Success!")
+      return
+    }
+    println("oops it died")
   }
 }

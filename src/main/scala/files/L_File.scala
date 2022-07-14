@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.reflect.io.Path
 
 // TODO - RESTRICT ACCESS TO FILE SO ONLY FILEMANAGER CAN USE IT
-class File(filePathIn: String) {
+class L_File(filePathIn: String) {
   val filePath: Path = Path.string2path(filePathIn)
   val fileExtension: String = setFileExtension(filePath)
   val lines: ArrayBuffer[String] = new ArrayBuffer[String]

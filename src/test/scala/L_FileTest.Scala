@@ -1,11 +1,14 @@
 package liamgiiv.weregoingtomars
 
-import files.{File, FileManager}
+import files.{FileManager, L_File}
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.{BeforeAndAfter, OneInstancePerTest}
 
-class FileTest extends AnyFunSuite with OneInstancePerTest with BeforeAndAfter {
+class L_FileTest
+    extends AnyFunSuite
+    with OneInstancePerTest
+    with BeforeAndAfter {
   info("FileTest tests follow:")
 
   val filepathWithoutFileExtension: String = "./my/bustedpath"

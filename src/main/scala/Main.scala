@@ -1,12 +1,14 @@
 package liamgiiv.weregoingtomars
 
-import files.{File, FileManager}
+import files.FileManager
 
 object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello, world!")
+    val lines: Array[String] =
+      Array("These, are, some, test, lines\n", "They, are, Pretty, Cool!\n")
 
-    val filepath: String = "./src/test/fixtures/valid.csv"
-
+    val validPathToWriteFile: String = "./src/test/fixtures/testWrite.csv"
+    val outputFileManager: FileManager = new FileManager(validPathToWriteFile)
+    outputFileManager.writeFile(validPathToWriteFile, lines)
   }
 }

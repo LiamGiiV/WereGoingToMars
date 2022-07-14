@@ -14,7 +14,6 @@ class FileManagerTest
     with OneInstancePerTest
     with BeforeAndAfter {
   info("FileOpenerTest tests follow:")
-  after {}
 
   val validPathToCsvFile: String = "./src/test/fixtures/valid.csv"
   val invalidPathToCsvFile: String = "./pokemon-global-offensive.csv"

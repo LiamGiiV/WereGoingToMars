@@ -15,7 +15,9 @@ class Expedition(
   val cargo: Array[Cargo] = cargoIn
 
   def addCargo(cargoIn: Array[Cargo]): Expedition = {
-    val newCargo: Array[Cargo] = new Array[Cargo]()
+    val newCargo: Array[Cargo] = Array.concat(this.cargo, cargoIn)
+    val returnExpedition: Expedition= new Expedition(this.series, this.expeditionType, this.trip, newCargo)
+    returnExpedition
   }
 }
 

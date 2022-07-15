@@ -5,7 +5,7 @@ ThisBuild / scalaVersion := "2.13.8"
 lazy val root = (project in file("."))
   .settings(
     name := "WereGoingToMars",
-    idePackagePrefix := Some("liamgiiv.weregoingtomars")
+    // idePackagePrefix := Some("liamgiiv.weregoingtomars")
   )
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.12"

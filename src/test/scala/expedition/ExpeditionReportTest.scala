@@ -22,10 +22,4 @@ class ExpeditionReportTest
   )
   val expeditionTestFixture: Expedition =
     new Expedition(series, expeditionType, trip, cargo)
-
-  test("ExpeditionReport should be of expected length.") {
-    val reportFixture: Array[String] = expeditionTestFixture.generateReport()
-    val expectedReportLength: Int = 4
-    assert(reportFixture.length == expectedReportLength)
-  }
 }

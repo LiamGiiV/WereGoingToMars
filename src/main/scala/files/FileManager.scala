@@ -69,7 +69,7 @@ class FileManager(filePathIn: String) {
 
     val printWriter = new PrintWriter(filePathIn)
     for (line <- linesIn) {
-      printWriter.write(line + "\n") // %
+      printWriter.write(line + "\n")
     }
     printWriter.close()
     true

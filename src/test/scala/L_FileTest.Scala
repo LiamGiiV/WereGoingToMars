@@ -34,7 +34,6 @@ class L_FileTest
     assert(fileManagerFixture.managedFile.get.fileExtension == validFile._3)
   }
 
-  // TODO verify that this behaviour is consistent across OSes
   test("Files should have the expected filepath.") {
     assert(
       fileManagerFixture.managedFile.get.filePath.toString() == validFile._4

@@ -25,16 +25,6 @@ class ExpeditionGenerator(
       headerlessData.get
     )
 
-    // %
-//    println("Printing parsed expeditions inside of Expedition Generator")
-//    for (line <- parsedExpeditions) {
-//      println(
-//        line.cargo(0).mineralType.toString + " - Quantity: " + line
-//          .cargo(0)
-//          .quantity
-//      )
-//    }
-
     val collatedCargoData: Map[String, Int] =
       CargoCollator.collateExpeditionCargo(parsedExpeditions)
 
@@ -117,7 +107,6 @@ class ExpeditionGenerator(
       new ArrayBuffer[String]()
 
     // TODO Replace with a more stylistically functional solution
-    // .remove(0) is returning Array[Char] instead of Array[String]?
     for (line <- fileData.get.lines) {
       if (!first) {
         headerlessExpeditionData.addOne(line)

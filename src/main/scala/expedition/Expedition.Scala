@@ -21,18 +21,6 @@ class Expedition(
       new Expedition(this.series, this.expeditionType, this.trip, newCargo)
     returnExpedition
   }
-//  // Should not be on the Expedition object
-//  def collateExpeditionCargo(
-//      expeditionDataIn: Array[Expedition]
-//  ): Map[String, Int] = {
-//    val material: Map[String, Int] = Map()
-//    for (expedition <- expeditionDataIn) {
-//      material + (expedition.cargo(0).mineralType.toString, expedition
-//        .cargo(0)
-//        .quantity)
-//    }
-//    material
-//  }
 }
 
 object ExpeditionType extends Enumeration {
@@ -44,15 +32,6 @@ object CargoCollator {
   def collateExpeditionCargo(
       expeditionDataIn: Array[Expedition]
   ): Map[String, Int] = {
-// %
-//    println("Printing parsed expeditions inside of Cargo Collator")
-//    for (line <- expeditionDataIn) {
-//      println(
-//        line.cargo(0).mineralType.toString + " - Quantity: " + line
-//          .cargo(0)
-//          .quantity
-//      )
-//    }
 
     var material: Map[String, Int] = Map[String, Int]()
     var chromiumAccumulator: Int = 0
@@ -66,15 +45,6 @@ object CargoCollator {
         case _          => println("Unknown mineralTypeCase case!")
       }
     }
-//    {
-//      val tempMaterialElement: (String, Int) = (
-//        expedition.cargo(0).mineralType.toString,
-//        expedition
-//          .cargo(0)
-//          .quantity
-//      )
-//      material += tempMaterialElement
-//    }
 
     val chromiumEntry: (String, Int) =
       (MineralType.Chromium.toString, chromiumAccumulator)
@@ -86,11 +56,6 @@ object CargoCollator {
     material += chromiumEntry
     material += goldEntry
     material += titaniumEntry
-// %
-//    println("Printing map of collated materials")
-//    for (line <- material) {
-//      println(line._1 + " - Quantity: " + line._2)
-//    }
 
     material
   }

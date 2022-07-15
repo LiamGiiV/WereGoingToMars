@@ -38,7 +38,11 @@ class FileManager(filePathIn: String) {
     if (testResult.isDefined) {
       testResult.get.toLowerCase() match {
         case "csv" => return true
-        case _     => return false
+        case _ =>
+          return {
+            println("non CSV File Extension case!")
+            false
+          }
       }
     }
     false
@@ -65,7 +69,7 @@ class FileManager(filePathIn: String) {
 
     val printWriter = new PrintWriter(filePathIn)
     for (line <- linesIn) {
-      printWriter.write(line)
+      printWriter.write(line + "\n") // %
     }
     printWriter.close()
     true

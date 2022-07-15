@@ -24,17 +24,19 @@ object ExpeditionReport {
   ): Array[String] = {
     val lineBuffer: ArrayBuffer[String] = new ArrayBuffer[String]
 
-    // Accumulate minerals
     var chromiumAmount: Int = 0
     var goldAmount: Int = 0
     var titaniumAmount: Int = 0
+    var i: Int = 1
     for (entry <- collatedExpeditionCargo) {
+      println(i)
+      i = i + 1
       entry._1 match {
         // TODO replace these magic strings
         case "Chromium" => chromiumAmount += entry._2
         case "Gold"     => goldAmount += entry._2
         case "Titanium" => titaniumAmount += entry._2
-        case _          => println("Unknown mineral type!")
+        case _          => println("Unknown mineralType case!")
       }
     }
 
@@ -42,10 +44,10 @@ object ExpeditionReport {
       MineralType.Chromium.toString + ", " + chromiumAmount.toString
     )
     lineBuffer.addOne(
-      MineralType.Chromium.toString + ", " + chromiumAmount.toString
+      MineralType.Gold.toString + ", " + goldAmount.toString
     )
     lineBuffer.addOne(
-      MineralType.Chromium.toString + ", " + chromiumAmount.toString
+      MineralType.Titanium.toString + ", " + titaniumAmount.toString
     )
     lineBuffer.toArray
   }

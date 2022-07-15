@@ -44,10 +44,54 @@ object CargoCollator {
   def collateExpeditionCargo(
       expeditionDataIn: Array[Expedition]
   ): Map[String, Int] = {
-    val material: Map[String, Int] = Map()
+// %
+//    println("Printing parsed expeditions inside of Cargo Collator")
+//    for (line <- expeditionDataIn) {
+//      println(
+//        line.cargo(0).mineralType.toString + " - Quantity: " + line
+//          .cargo(0)
+//          .quantity
+//      )
+//    }
+
+    var material: Map[String, Int] = Map[String, Int]()
+    var chromiumAccumulator: Int = 0
+    var goldAccumulator: Int = 0
+    var titaniumAccumulator: Int = 0
     for (expedition <- expeditionDataIn) {
-// TODO figure out how to get a list of how much of each thing there is
+      expedition.cargo(0).mineralType.toString match {
+        case "Chromium" => chromiumAccumulator += expedition.cargo(0).quantity
+        case "Gold"     => goldAccumulator += expedition.cargo(0).quantity
+        case "Titanium" => titaniumAccumulator += expedition.cargo(0).quantity
+        case _          => println("Unknown mineralTypeCase case!")
+      }
     }
+//    {
+//      val tempMaterialElement: (String, Int) = (
+//        expedition.cargo(0).mineralType.toString,
+//        expedition
+//          .cargo(0)
+//          .quantity
+//      )
+//      material += tempMaterialElement
+//    }
+
+    val chromiumEntry: (String, Int) =
+      (MineralType.Chromium.toString, chromiumAccumulator)
+    val goldEntry: (String, Int) =
+      (MineralType.Gold.toString, goldAccumulator)
+    val titaniumEntry: (String, Int) =
+      (MineralType.Titanium.toString, titaniumAccumulator)
+
+    material += chromiumEntry
+    material += goldEntry
+    material += titaniumEntry
+// %
+//    println("Printing map of collated materials")
+//    for (line <- material) {
+//      println(line._1 + " - Quantity: " + line._2)
+//    }
+
     material
   }
 }

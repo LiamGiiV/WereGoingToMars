@@ -12,12 +12,11 @@ object Main {
     val expeditionDataGenerator =
       new ExpeditionGenerator(
         "./data/expeditions.csv",
-        "./src/test/fixtures/testWrite.csv"
+        "./data/minerals.csv"
       )
     if (expeditionDataGenerator.go()) {
-      println("Success!")
+      println("Success (but never trust hardcoded messages)!")
       return
     }
-    println("oops it died")
   }
 }

@@ -24,12 +24,23 @@ class ExpeditionGenerator(
     val parsedExpeditions: Array[Expedition] = parseHeaderlessDataToExpedition(
       headerlessData.get
     )
+
+    // %
+//    println("Printing parsed expeditions inside of Expedition Generator")
+//    for (line <- parsedExpeditions) {
+//      println(
+//        line.cargo(0).mineralType.toString + " - Quantity: " + line
+//          .cargo(0)
+//          .quantity
+//      )
+//    }
+
     val collatedCargoData: Map[String, Int] =
       CargoCollator.collateExpeditionCargo(parsedExpeditions)
 
     val fileManager: FileManager = new FileManager("")
     if (
-      fileManager.writeFile(
+      !fileManager.writeFile(
         destinationFilePath,
         ExpeditionReport.generateReport(collatedCargoData)
       )
@@ -60,7 +71,7 @@ class ExpeditionGenerator(
       line(1) match {
         case "A" => tempExpeditionType = ExpeditionType.A
         case "B" => tempExpeditionType = ExpeditionType.B
-        case _   => println("Unexpected Expedition Type")
+        case _   => println("Unexpected ExpeditionType case!")
       }
 
       val tempTrip: Int = line(2).toInt
@@ -71,6 +82,7 @@ class ExpeditionGenerator(
         case "Chromium" => tempCargoType = MineralType.Chromium
         case "Gold"     => tempCargoType = MineralType.Gold
         case "Titanium" => tempCargoType = MineralType.Titanium
+        case _          => println("Unknown tempCargoType case!")
       }
 
       val tempCargoPrice: Float = line(5).toFloat
@@ -109,7 +121,6 @@ class ExpeditionGenerator(
     for (line <- fileData.get.lines) {
       if (!first) {
         headerlessExpeditionData.addOne(line)
-        println(line)
       }
       first = false
     }

@@ -5,11 +5,12 @@ For the fine folks at Kinaxis.
 Some requirements:
 
 - Scala 2.13.8
-- sbt
+- sbt latest
 
 Some suggestions for best results:
 - Written with Intellij
 - File handling only tested on a Windows and Linux via WSL2 due to availability of devices
+- The `package` structure with `liamgiiv.weregoingtomars` in `build.sbt` seems to break or unbreak depending on the version of sbt, if you can't use the latest sbt for some reason make sure that line is commented out in `build.sbt`
 
 Usage:
 

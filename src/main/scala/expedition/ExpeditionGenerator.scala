@@ -76,9 +76,8 @@ class ExpeditionGenerator(
       }
 
       val tempCargoPrice: Float = line(5).toFloat
-      val tempCargo: Array[Cargo] = Array(
+      val tempCargo: Cargo =
         new Cargo(tempCargoQuantity, tempCargoType, tempCargoPrice)
-      )
 
       val tempExpedition: Expedition = new Expedition(
         tempSeries,

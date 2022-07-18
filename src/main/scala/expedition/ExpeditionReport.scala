@@ -27,10 +27,7 @@ object ExpeditionReport {
     var chromiumAmount: Int = 0
     var goldAmount: Int = 0
     var titaniumAmount: Int = 0
-    var i: Int = 1
     for (entry <- collatedExpeditionCargo) {
-      println(i)
-      i = i + 1
       entry._1 match {
         // TODO replace these magic strings
         case "Chromium" => chromiumAmount += entry._2

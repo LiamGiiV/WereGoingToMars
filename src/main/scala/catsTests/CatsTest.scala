@@ -1,29 +1,31 @@
-import cats.effect.{IO, Resource}
+import cats.effect.{Concurrent, IO, Resource}
 import cats.syntax.all._
-import com.sun.management.VMOption.Origin
+import cats.effect.concurrent.Semaphore
 
-import java.io._
-import java.io.File
-import javax.print.attribute.standard.Destination
+import java.io.{File, FileInputStream, FileOutputStream, InputStream, OutputStream}
 
-def inputStream(file: File): Resource[IO, FileInputStream] =
+def inputStream(file: File, guard: Semaphore[IO]): Resource[IO, FileInputStream] =
   Resource.make {
     IO(new FileInputStream(file))
   } { inStream =>
-    IO(inStream.close()).handleErrorWith(_ => IO.unit) // TODO add logging
+    guard.withPermit {
+      IO(inStream.close()).handleErrorWith(_ => IO.unit) // TODO add logging
+    }
   }
 
-def outputStream(file: File): Resource[IO, FileOutputStream] =
+def outputStream(file: File, guard: Semaphore[IO]): Resource[IO, FileOutputStream] =
   Resource.make {
     IO( new FileOutputStream(file))
   } { outputStream =>
-    IO(outputStream.close()).handleErrorWith(_ => IO.unit) // TODO add logging
+    guard.withPermit {
+      IO(outputStream.close()).handleErrorWith(_ => IO.unit) // TODO add logging
+    }
   }
 
-def inputOutputStreams(input: File, output: File): Resource[IO, (InputStream, OutputStream)] =
+def inputOutputStreams(input: File, output: File, guard: Semaphore[IO]): Resource[IO, (InputStream, OutputStream)] =
   for {
-    inStream <- inputStream(input)
-    outStream <- outputStream(output)
+    inStream <- inputStream(input, guard)
+    outStream <- outputStream(output, guard)
   } yield (inStream, outStream)
 
 def transmit(origin: InputStream, destination: OutputStream,buffer: Array[Byte], acc: Long): IO[Long] =
@@ -38,7 +40,11 @@ def transfer(origin: InputStream, destination: OutputStream): IO[Long] = for {
   total <- transmit(origin, destination, buffer, 0L)
 } yield total
 
-def copy(origin: File, destination: File) : IO[Long] = {
-  inputOutputStreams(origin, destination).use { case (in, out) =>
-    transfer(in, out)}
+def copy(origin: File, destination: File)(implicit concurrent: Concurrent[IO]): IO[Long] = {
+  for {
+    guard <- Semaphore[IO](1)
+    count <- inputOutputStreams(origin, destination, guard).use { case (in, out) =>
+      guard.withPermit(transfer(in, out))
+    }
+  } yield count
 }
